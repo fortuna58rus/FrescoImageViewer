@@ -59,6 +59,7 @@ public class ImageViewerView extends RelativeLayout
 
     private boolean isZoomingAllowed = true;
     private boolean isSwipeToDismissAllowed = true;
+    private ImageRequestBuilder customLowResImageRequestBuilder;
 
     public ImageViewerView(Context context) {
         super(context);
@@ -77,13 +78,17 @@ public class ImageViewerView extends RelativeLayout
 
     public void setUrls(ImageViewer.DataSet<?> dataSet, int startPosition) {
         adapter = new ImageViewerAdapter(
-                getContext(), dataSet, customImageRequestBuilder, customDraweeHierarchyBuilder, isZoomingAllowed);
+                getContext(), dataSet, customImageRequestBuilder, customLowResImageRequestBuilder, customDraweeHierarchyBuilder, isZoomingAllowed);
         pager.setAdapter(adapter);
         setStartPosition(startPosition);
     }
 
     public void setCustomImageRequestBuilder(ImageRequestBuilder customImageRequestBuilder) {
         this.customImageRequestBuilder = customImageRequestBuilder;
+    }
+
+    public void setCustomLowResImageRequestBuilder(ImageRequestBuilder customLowResImageRequestBuilder) {
+        this.customLowResImageRequestBuilder = customLowResImageRequestBuilder;
     }
 
     public void setCustomDraweeHierarchyBuilder(GenericDraweeHierarchyBuilder customDraweeHierarchyBuilder) {
@@ -264,5 +269,4 @@ public class ImageViewerView extends RelativeLayout
                 && overlayView.getVisibility() == VISIBLE
                 && overlayView.dispatchTouchEvent(event);
     }
-
 }

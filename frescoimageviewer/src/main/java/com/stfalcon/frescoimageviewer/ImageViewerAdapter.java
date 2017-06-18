@@ -27,6 +27,7 @@ import me.relex.photodraweeview.OnScaleChangeListener;
 class ImageViewerAdapter
         extends RecyclingPagerAdapter<ImageViewerAdapter.ImageViewHolder> {
 
+    private ImageRequestBuilder lowResImageRequestBuilder;
     private Context context;
     private ImageViewer.DataSet<?> dataSet;
     private HashSet<ImageViewHolder> holders;
@@ -36,12 +37,14 @@ class ImageViewerAdapter
 
     ImageViewerAdapter(Context context, ImageViewer.DataSet<?> dataSet,
                        ImageRequestBuilder imageRequestBuilder,
+                       ImageRequestBuilder lowResImageRequestBuilder,
                        GenericDraweeHierarchyBuilder hierarchyBuilder,
                        boolean isZoomingAllowed) {
         this.context = context;
         this.dataSet = dataSet;
         this.holders = new HashSet<>();
         this.imageRequestBuilder = imageRequestBuilder;
+        this.lowResImageRequestBuilder = lowResImageRequestBuilder;
         this.hierarchyBuilder = hierarchyBuilder;
         this.isZoomingAllowed = isZoomingAllowed;
     }
@@ -148,6 +151,9 @@ class ImageViewerAdapter
             if (imageRequestBuilder != null) {
                 imageRequestBuilder.setSource(Uri.parse(url));
                 controllerBuilder.setImageRequest(imageRequestBuilder.build());
+            }
+            if (lowResImageRequestBuilder != null) {
+                controllerBuilder.setLowResImageRequest(lowResImageRequestBuilder.build());
             }
             drawee.setController(controllerBuilder.build());
         }

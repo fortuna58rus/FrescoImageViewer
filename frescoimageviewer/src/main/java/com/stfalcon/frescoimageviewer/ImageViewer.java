@@ -71,6 +71,7 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
     private void createDialog() {
         viewer = new ImageViewerView(builder.context);
         viewer.setCustomImageRequestBuilder(builder.customImageRequestBuilder);
+        viewer.setCustomLowResImageRequestBuilder(builder.customLowResImageRequestBuilder);
         viewer.setCustomDraweeHierarchyBuilder(builder.customHierarchyBuilder);
         viewer.allowZooming(builder.isZoomingAllowed);
         viewer.allowSwipeToDismiss(builder.isSwipeToDismissAllowed);
@@ -207,6 +208,7 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
         private int imageMarginPixels;
         private int[] containerPaddingPixels = new int[4];
         private ImageRequestBuilder customImageRequestBuilder;
+        private ImageRequestBuilder customLowResImageRequestBuilder;
         private GenericDraweeHierarchyBuilder customHierarchyBuilder;
         private boolean shouldStatusBarHide = true;
         private boolean isZoomingAllowed = true;
@@ -401,6 +403,11 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
          */
         public Builder setCustomImageRequestBuilder(ImageRequestBuilder customImageRequestBuilder) {
             this.customImageRequestBuilder = customImageRequestBuilder;
+            return this;
+        }
+
+        public Builder setCustomLowResImageRequestBuilder(ImageRequestBuilder customLowResImageRequestBuilder) {
+            this.customLowResImageRequestBuilder = customLowResImageRequestBuilder;
             return this;
         }
 
