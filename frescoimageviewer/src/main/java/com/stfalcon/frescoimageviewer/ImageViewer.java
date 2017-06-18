@@ -174,6 +174,7 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
 
         private List<T> data;
         private Formatter<T> formatter;
+        private Formatter<T> formatterLowRes;
 
         DataSet(List<T> data) {
             this.data = data;
@@ -186,6 +187,15 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
         String format(T t) {
             if (formatter == null) return t.toString();
             else return formatter.format(t);
+        }
+
+        String formatLowRes(int position) {
+            return formatLowRes(data.get(position));
+        }
+
+        String formatLowRes(T t) {
+            if (formatterLowRes == null) return t.toString();
+            else return formatterLowRes.format(t);
         }
 
         public List<T> getData() {
@@ -234,6 +244,11 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
          */
         public Builder setFormatter(Formatter<T> formatter) {
             this.dataSet.formatter = formatter;
+            return this;
+        }
+
+        public Builder setFormatterLowRes(Formatter<T> formatter) {
+            this.dataSet.formatterLowRes = formatter;
             return this;
         }
 

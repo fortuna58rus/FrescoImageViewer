@@ -122,7 +122,7 @@ class ImageViewerAdapter
             this.position = position;
 
             tryToSetHierarchy();
-            setController(dataSet.format(position));
+            setController(dataSet.format(position), dataSet.formatLowRes(position));
 
             drawee.setOnScaleChangeListener(this);
         }
@@ -143,7 +143,7 @@ class ImageViewerAdapter
             }
         }
 
-        private void setController(String url) {
+        private void setController(String url, String lowResUrl) {
             PipelineDraweeControllerBuilder controllerBuilder = Fresco.newDraweeControllerBuilder();
             controllerBuilder.setUri(url);
             controllerBuilder.setOldController(drawee.getController());
@@ -153,6 +153,7 @@ class ImageViewerAdapter
                 controllerBuilder.setImageRequest(imageRequestBuilder.build());
             }
             if (lowResImageRequestBuilder != null) {
+                lowResImageRequestBuilder.setSource(Uri.parse(lowResUrl));
                 controllerBuilder.setLowResImageRequest(lowResImageRequestBuilder.build());
             }
             drawee.setController(controllerBuilder.build());
